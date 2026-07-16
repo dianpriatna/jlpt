@@ -1,0 +1,20 @@
+# Auto detect text files and normalize line endings to LF on commit
+* text=auto eol=lf
+
+# Explicit for the file types this project uses
+*.js text eol=lf
+*.svelte text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+
+# Never normalize binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
