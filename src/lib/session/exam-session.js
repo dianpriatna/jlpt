@@ -17,6 +17,11 @@ export class ExamSession {
 		this.answerSheet = new AnswerSheet(this.questions.length);
 
 		this.startedAt = new Date().toISOString();
+
+		// diisi lewat startExam Cloud Function untuk mode 'exam'; startedAt
+		// yang jadi acuan anti-cheat adalah server timestamp di attempt doc,
+		// bukan this.startedAt di atas (itu cuma buat tampilan/local storage)
+		this.attemptId = null;
 	}
 
 	currentQuestion() {

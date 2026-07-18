@@ -9,6 +9,7 @@ export class ResultBuilder {
 
 			examId: session.exam.id,
 			studentId,
+			mode: 'practice',
 
 			questionIds: session.questions.map((question) => question.id),
 			answers: session.answerSheet.answers,

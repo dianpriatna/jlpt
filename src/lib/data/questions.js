@@ -6,7 +6,11 @@ export const questions = [
 		category: 'kanji',
 		question: '_学校_へ行きます。',
 		choices: ['がっこう', 'ぎっこう', 'がこう', 'がくこう'],
-		answer: 1
+		answer: 1,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 2,
@@ -14,7 +18,11 @@ export const questions = [
 		category: 'kanji',
 		question: '毎朝(まいあさ)、_電車_で会社(かいしゃ)へ行きます。',
 		choices: ['でんしゃ', 'でんわ', 'じてんしゃ', 'でんき'],
-		answer: 1
+		answer: 1,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 3,
@@ -22,7 +30,11 @@ export const questions = [
 		category: 'vocabulary',
 		question: 'きのうは とても ____ でした。',
 		choices: ['あつい', 'あつかった', 'あつく', 'あつさ'],
-		answer: 2
+		answer: 2,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 4,
@@ -30,7 +42,11 @@ export const questions = [
 		category: 'grammar',
 		question: 'わたしは 日本へ ____。',
 		choices: ['いきます', 'いきました', 'いきたい', 'いく'],
-		answer: 1
+		answer: 1,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 5,
@@ -43,7 +59,11 @@ export const questions = [
 			'田中さんは毎日休みます。',
 			'田中さんは学生ではありません。'
 		],
-		answer: 1
+		answer: 1,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 6,
@@ -51,7 +71,11 @@ export const questions = [
 		category: 'kanji',
 		question: '_友達_と映画(えいが)を見(み)ます。',
 		choices: ['ともだち', 'ゆうたち', 'ともたち', 'ゆうだち'],
-		answer: 1
+		answer: 1,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 7,
@@ -59,7 +83,11 @@ export const questions = [
 		category: 'vocabulary',
 		question: '朝ご飯(あさごはん)を ____。',
 		choices: ['のみます', 'たべます', 'ききます', 'みます'],
-		answer: 2
+		answer: 2,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 8,
@@ -67,7 +95,11 @@ export const questions = [
 		category: 'grammar',
 		question: 'これは わたし ____ 本です。',
 		choices: ['の', 'に', 'を', 'で'],
-		answer: 1
+		answer: 1,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 9,
@@ -80,7 +112,11 @@ export const questions = [
 			'今日は月曜日です。',
 			'今日は仕事です。'
 		],
-		answer: 2
+		answer: 2,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	},
 	{
 		id: 10,
@@ -88,6 +124,10 @@ export const questions = [
 		category: 'listening',
 		question: '音声(おんせい)を聞(き)いて答(こた)えてください。',
 		choices: ['①', '②', '③', '④'],
-		answer: 3
+		answer: 3,
+		status: 'published',
+		version: 1,
+		previousId: null,
+		teacherId: 'seed-teacher'
 	}
 ];

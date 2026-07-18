@@ -6,13 +6,22 @@
 
 	import { auth } from '$lib/firebase';
 
-	import { currentUser, authReady } from '$lib/auth/current-user';
+	import { currentUser, authReady, currentRole } from '$lib/auth/current-user';
 
 	let { children } = $props();
 
 	onMount(() => {
-		return onAuthStateChanged(auth, (user) => {
+		return onAuthStateChanged(auth, async (user) => {
 			currentUser.set(user);
+
+			if (user) {
+				// role diambil dari Custom Claims, bukan Firestore, biar tidak nambah read
+				const tokenResult = await user.getIdTokenResult();
+
+				currentRole.set(tokenResult.claims.role ?? null);
+			} else {
+				currentRole.set(null);
+			}
 
 			authReady.set(true);
 		});

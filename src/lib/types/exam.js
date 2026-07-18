@@ -32,4 +32,7 @@
  * @property {boolean} randomChoices
  *
  * @property {boolean} showTimer
+ * @property {number|null} durationSeconds - null = tanpa batas waktu. Dipakai
+ * Cloud Function untuk validasi anti-cheat (bandingkan terhadap server timestamp),
+ * bukan cuma dipercaya dari client.
  */

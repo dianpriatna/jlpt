@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function role() {
+      return request.auth.token.role;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isTeacher() {
+      return isSignedIn() && role() == 'teacher';
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && role() == 'super_admin';
+    }
+
+    function isOwner(resourceData) {
+      return isSignedIn() && resourceData.teacherId == request.auth.uid;
+    }
+
+    // Soal: siswa hanya boleh baca yang Published.
+    // Guru hanya boleh tulis/baca soal miliknya sendiri (field teacherId).
+    // Soal Published tidak boleh diedit langsung (immutable), hanya boleh
+    // pindah ke Archived oleh pemiliknya sendiri.
+    match /questions/{questionId} {
+      allow read: if resource.data.status == 'published'
+        || isOwner(resource.data)
+        || isSuperAdmin();
+
+      allow create: if isTeacher() && request.resource.data.teacherId == request.auth.uid;
+
+      allow update: if isOwner(resource.data) && (
+        resource.data.status != 'published'
+        || request.resource.data.status == 'archived'
+      );
+
+      allow delete: if isSuperAdmin();
+    }
+
+    match /exams/{examId} {
+      allow read: if isSignedIn();
+      allow write: if isTeacher() || isSuperAdmin();
+    }
+
+    // Result mode 'exam' hanya boleh ditulis oleh Cloud Function (Admin SDK,
+    // yang bypass Security Rules). Client cuma boleh menulis result untuk
+    // practice mode milik dirinya sendiri, dan tidak boleh mengubahnya lagi
+    // setelah status locked/graded.
+    match /results/{resultId} {
+      allow read: if isSignedIn() && (
+        resource.data.studentId == request.auth.uid || isTeacher() || isSuperAdmin()
+      );
+
+      allow create: if isSignedIn()
+        && request.resource.data.studentId == request.auth.uid
+        && request.resource.data.mode == 'practice';
+
+      allow update, delete: if false;
+    }
+
+    match /students/{studentId} {
+      allow read: if isSignedIn() && (request.auth.uid == studentId || isTeacher() || isSuperAdmin());
+      allow write: if isSuperAdmin();
+    }
+
+    match /teachers/{teacherId} {
+      allow read: if isSignedIn();
+      allow write: if isSuperAdmin();
+    }
+
+    match /attempts/{attemptId} {
+      // dibuat & dibaca lewat Cloud Function (Admin SDK) saja
+      allow read, write: if false;
+    }
+  }
+}

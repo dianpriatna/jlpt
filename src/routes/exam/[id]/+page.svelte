@@ -1,9 +1,11 @@
 <script>
+	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 
 	import { examResolver } from '$lib/resolvers/exam';
 	import { ExamSession } from '$lib/session/exam-session';
+	import { startExam } from '$lib/use-cases/start-exam';
 	import { submitExam } from '$lib/use-cases/submit-exam';
 	import { currentUser } from '$lib/auth/current-user';
 
@@ -20,6 +22,22 @@
 	let selected = $state(session ? session.answerSheet.getAnswer(session.current) : null);
 
 	let currentIndex = $state(session?.current ?? 0);
+
+	let starting = $state(session?.exam.mode === 'exam');
+	let submitting = $state(false);
+	let submitError = $state('');
+
+	onMount(async () => {
+		if (!session || session.exam.mode !== 'exam') return;
+
+		try {
+			await startExam(session);
+		} catch (error) {
+			submitError = 'Gagal memulai ujian. Muat ulang halaman.';
+		} finally {
+			starting = false;
+		}
+	});
 
 	function refresh() {
 		if (!session) return;
@@ -49,16 +67,25 @@
 		refresh();
 	}
 
-	function submit() {
-		if (!session) return;
+	async function submit() {
+		if (!session || submitting) return;
 
 		if (!confirm('Yakin ingin mengumpulkan ujian?')) {
 			return;
 		}
 
-		const result = submitExam(session, $currentUser?.uid ?? 'guest');
+		submitting = true;
+		submitError = '';
 
-		goto(`/result/${result.id}`);
+		try {
+			const result = await submitExam(session, $currentUser?.uid ?? 'guest');
+
+			goto(`/result/${result.id}`);
+		} catch (error) {
+			submitError = error.message ?? 'Gagal mengumpulkan ujian, coba lagi.';
+		} finally {
+			submitting = false;
+		}
 	}
 </script>
 
@@ -72,6 +99,13 @@
 	<p class="mb-4 text-sm opacity-70">
 		Soal {currentIndex + 1} / {resolvedExam.questions.length}
 	</p>
+
+	{#if submitError}
+		<div class="alert alert-error mb-4">
+			<span>{submitError}</span>
+		</div>
+	{/if}
+
 	<QuestionCard {question} {selected} onSelect={handleSelect} />
 	<div class="mt-6">
 		<button class="btn" onclick={previous} disabled={currentIndex === 0}> Previous </button>
@@ -81,6 +115,8 @@
 		</button>
 	</div>
 	<div class="mt-6 flex justify-end">
-		<button class="btn btn-success" type="button" onclick={submit}> Submit </button>
+		<button class="btn btn-success" type="button" onclick={submit} disabled={starting || submitting}>
+			{submitting ? 'Mengirim...' : 'Submit'}
+		</button>
 	</div>
 {/if}

@@ -11,4 +11,9 @@
  * @property {string} question
  * @property {string[]} choices
  * @property {number} answer
+ *
+ * @property {import('./question-status').QuestionStatus} status
+ * @property {number} version - dimulai dari 1, naik tiap revisi
+ * @property {number|null} previousId - id soal versi sebelumnya, null kalau versi pertama
+ * @property {string} teacherId - pemilik soal, dipakai Firestore Security Rules
  */

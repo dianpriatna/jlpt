@@ -10,7 +10,8 @@ export const exams = [
 		passageIds: [],
 		randomQuestions: true,
 		randomChoices: true,
-		showTimer: false
+		showTimer: false,
+		durationSeconds: null
 	},
 	{
 		id: 2,
@@ -22,7 +23,8 @@ export const exams = [
 		passageIds: [],
 		randomQuestions: true,
 		randomChoices: true,
-		showTimer: false
+		showTimer: false,
+		durationSeconds: null
 	},
 	{
 		id: 3,
@@ -34,7 +36,8 @@ export const exams = [
 		passageIds: [1, 2],
 		randomQuestions: false,
 		randomChoices: false,
-		showTimer: false
+		showTimer: false,
+		durationSeconds: null
 	},
 	{
 		id: 4,
@@ -46,7 +49,8 @@ export const exams = [
 		passageIds: [],
 		randomQuestions: false,
 		randomChoices: false,
-		showTimer: false
+		showTimer: false,
+		durationSeconds: null
 	},
 	{
 		id: 5,
@@ -58,6 +62,7 @@ export const exams = [
 		passageIds: [1, 2],
 		randomQuestions: true,
 		randomChoices: true,
-		showTimer: true
+		showTimer: true,
+		durationSeconds: 1800
 	}
 ];
