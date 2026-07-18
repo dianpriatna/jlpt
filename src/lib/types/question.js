@@ -10,7 +10,7 @@
  * @property {QuestionCategory} category
  * @property {string} question
  * @property {string[]} choices
- * @property {number} answer
+ * @property {number} answer - index 0-based ke array choices (sesuai index yang dikirim UI saat memilih)
  *
  * @property {import('./question-status').QuestionStatus} status
  * @property {number} version - dimulai dari 1, naik tiap revisi

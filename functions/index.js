@@ -55,7 +55,8 @@ export const submitExam = onCall(async (request) => {
 
 	const attempt = attemptSnap.data();
 
-	if (attempt.studentId !== uid) throw new HttpsError('permission-denied', 'Bukan attempt milikmu.');
+	if (attempt.studentId !== uid)
+		throw new HttpsError('permission-denied', 'Bukan attempt milikmu.');
 	if (attempt.status !== 'in_progress') {
 		throw new HttpsError('failed-precondition', 'Attempt sudah disubmit sebelumnya.');
 	}

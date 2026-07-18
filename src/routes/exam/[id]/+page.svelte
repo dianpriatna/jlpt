@@ -110,12 +110,21 @@
 	<div class="mt-6">
 		<button class="btn" onclick={previous} disabled={currentIndex === 0}> Previous </button>
 
-		<button class="btn btn-primary" onclick={next} disabled={currentIndex === resolvedExam.questions.length - 1}>
+		<button
+			class="btn btn-primary"
+			onclick={next}
+			disabled={currentIndex === resolvedExam.questions.length - 1}
+		>
 			Next
 		</button>
 	</div>
 	<div class="mt-6 flex justify-end">
-		<button class="btn btn-success" type="button" onclick={submit} disabled={starting || submitting}>
+		<button
+			class="btn btn-success"
+			type="button"
+			onclick={submit}
+			disabled={starting || submitting}
+		>
 			{submitting ? 'Mengirim...' : 'Submit'}
 		</button>
 	</div>

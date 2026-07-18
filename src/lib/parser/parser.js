@@ -2,10 +2,7 @@ import { plain, ruby, target } from './nodes.js';
 
 const KANJI_CHARS = '\\p{Script=Han}';
 const FURIGANA_CHARS = '\\p{Script=Hiragana}\\p{Script=Katakana}ー';
-const TOKEN_REGEX = new RegExp(
-	`([${KANJI_CHARS}]+)\\(([${FURIGANA_CHARS}]+)\\)|_([^_]+)_`,
-	'gu'
-);
+const TOKEN_REGEX = new RegExp(`([${KANJI_CHARS}]+)\\(([${FURIGANA_CHARS}]+)\\)|_([^_]+)_`, 'gu');
 
 export function parse(text) {
 	const nodes = [];
